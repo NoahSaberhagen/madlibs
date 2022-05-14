@@ -2,41 +2,58 @@ html{
   color: #D7D9CE;
   background-color: #040404;
 }
+body,html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Macondo', cursive;
+}
 h1{
-  font-size: 4rem;
+  font-size: 3rem;
+  margin: 0;
+  font-family: 'Koulen', cursive;
+}
+.inputs{
+  padding: .2rem;
+  margin: 0;
 }
 .test{
+  padding: .2rem;
   width: 70vw;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  margin: auto;
+  animation-duration: 3s;
+}
+.madlib-form{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
 }
 .madlib-form__submit-button{
+  font-family: 'Koulen', cursive;
   color: #D7D9CE;
-  background-color: #0C7489;
-  border: 1px solid #0C7489;
-  border-radius: 1rem;
-  font-family: 'Open Sans', sans-serif;
-  font-family: 'Roboto', sans-serif;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 1rem;
+  background-color: #E43F6F;
+  border: 1px solid #E43F6F;
+  font-size: 1.5rem;
   padding: 0;
   margin: auto;
   width: 70px;
 }
 .madlib-form__submit-button:hover{
   border: 1px solid #D7D9CE;
- 
 }
 #app {
+  margin: .5rem;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Open Sans', sans-serif;
-  font-family: 'Roboto', sans-serif;
-  font-family: 'Source Sans Pro', sans-serif;
+  justify-content: center;
+  font-family: 'Macondo', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
 
 
-
+@keyframes test {
+  from {opacity: 0}
+  to {opacity: 1}
+}

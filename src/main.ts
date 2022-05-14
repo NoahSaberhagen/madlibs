@@ -9,11 +9,11 @@ const main = async () => {
 	// const submit = document.querySelector(".madlib-form__submit-button");
 	// submit?.addEventListener("click", () => {
 	// 	words.push(word);
-	// });
+	// });    animation-name: test;
 
 	const gptResponse = await openai.complete({
 		engine: "text-davinci-002",
-		prompt: "tell me a happy story about dogs",
+		prompt: "tell me a crazy story about dinosaurs",
 		temperature: 0.6,
 		maxTokens: 150,
 		topP: 1,
@@ -23,7 +23,10 @@ const main = async () => {
 
 	const paragraph = document.querySelector(".test");
 	paragraph.textContent = gptResponse.data.choices[0].text;
+  paragraph?.setAttribute("style", "animation-name: test;");
 	console.log(gptResponse.data.choices[0].text);
 };
 
 main();
+
+
