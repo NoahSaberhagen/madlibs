@@ -3,11 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="/src/style.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
   <body>
     <div id="app">
+      <h1>AI Madlibs</h1>
+      <form class="madlib-form" type="submit">
+        <input class="madlib-form__input" type="text">
+        <input class="madlib-form__submit-button" type="submit">
+      </form>
       <p class="test"></p>
     </div>
     <script type="module" src="/src/main.ts"></script>
