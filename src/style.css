@@ -1,5 +1,5 @@
 html{
-  color: #D7D9CE;
+  color: white;
   background-color: #040404;
 }
 body,html {
@@ -16,12 +16,12 @@ h1{
   padding: .2rem;
   margin: 0;
 }
-.test{
+.story-field{
   padding: .2rem;
   width: 70vw;
   font-size: 2.5rem;
   margin: auto;
-  animation-duration: 3s;
+  animation-duration: 1.75s;
 }
 .madlib-form{
   display: flex;
@@ -30,7 +30,7 @@ h1{
 }
 .madlib-form__submit-button{
   font-family: 'Koulen', cursive;
-  color: #D7D9CE;
+  color: white;
   background-color: #E43F6F;
   border: 1px solid #E43F6F;
   font-size: 1.5rem;
@@ -39,7 +39,7 @@ h1{
   width: 70px;
 }
 .madlib-form__submit-button:hover{
-  border: 1px solid #D7D9CE;
+  border: 1px solid white;
 }
 #app {
   margin: .5rem;
@@ -53,7 +53,7 @@ h1{
 }
 
 
-@keyframes test {
+@keyframes fade-in {
   from {opacity: 0}
   to {opacity: 1}
 }

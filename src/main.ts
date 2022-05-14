@@ -9,11 +9,11 @@ const main = async () => {
 	// const submit = document.querySelector(".madlib-form__submit-button");
 	// submit?.addEventListener("click", () => {
 	// 	words.push(word);
-	// });    animation-name: test;
+	// });
 
 	const gptResponse = await openai.complete({
 		engine: "text-davinci-002",
-		prompt: "tell me a crazy story about dinosaurs",
+		prompt: "tell me a funny story using these words: oatmeal, triangular, sticky notes",
 		temperature: 0.6,
 		maxTokens: 150,
 		topP: 1,
@@ -21,9 +21,9 @@ const main = async () => {
 		presencePenalty: 1
 	});
 
-	const paragraph = document.querySelector(".test");
+	const paragraph = document.querySelector(".story-field");
 	paragraph.textContent = gptResponse.data.choices[0].text;
-  paragraph?.setAttribute("style", "animation-name: test;");
+	paragraph.setAttribute("style", "animation-name: fade-in;");
 	console.log(gptResponse.data.choices[0].text);
 };
 
