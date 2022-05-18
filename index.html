@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Koulen&family=Macondo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Koulen&family=Macondo&family=Roboto+Mono:ital,wght@1,100&display=swap" rel="stylesheet">
     <title>AI MADLIBS</title>
   </head>
   <body>
@@ -14,9 +14,11 @@
       <div class="inputs">
         <h1>AI Madlibs</h1>
         <form class="madlib-form" type="submit">
-          <input class="madlib-form__input" type="text">
-          <input class="madlib-form__submit-button" type="submit">
+          <input class="madlib-form__input" type="text" placeholder="enter a word here">
+          <button class="madlib-form__submit-button" type="button">+</button>
         </form>
+        <ul class="list-of-words">
+        </ul>
       </div>
       <p class="story-field">loading...</p>
     </div>

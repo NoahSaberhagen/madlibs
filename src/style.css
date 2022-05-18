@@ -2,12 +2,19 @@ html{
   color: white;
   background-color: #040404;
 }
+
 body,html {
   margin: 0;
   padding: 0;
   font-family: 'Macondo', cursive;
 }
+
+ul{
+  list-style: none;
+}
+
 h1{
+  color: #E43F6F;
   font-size: 3rem;
   margin: 0;
   font-family: 'Koulen', cursive;
@@ -19,7 +26,8 @@ h1{
 .story-field{
   padding: .2rem;
   width: 70vw;
-  font-size: 2.5rem;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.75rem;
   margin: auto;
   animation-duration: 1.75s;
 }
@@ -33,10 +41,13 @@ h1{
   color: white;
   background-color: #E43F6F;
   border: 1px solid #E43F6F;
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 0;
   margin: auto;
   width: 70px;
+}
+.madlib-form__input, .madlib-form__submit-button{
+  height: 1.75rem;
 }
 .madlib-form__submit-button:hover{
   border: 1px solid white;
