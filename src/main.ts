@@ -10,7 +10,7 @@ const main = async () => {
 
 	const gptResponse = await openai.complete({
 		engine: "text-davinci-002",
-		prompt: "tell me a funny story using these words: angular JS",
+		prompt: "tell me a funny story using these words: ",
 		temperature: 0.6,
 		maxTokens: 150,
 		topP: 1,
@@ -28,17 +28,34 @@ main();
 
 const form = document.querySelector(".madlib-form");
 
+const wordsForStory: string[] = [];
+
+
 form?.addEventListener("submit", (e) => {
-  e.preventDefault();
+	e.preventDefault();
+
+	const newWord = document.createElement("li");
+	
 	const input: string = document.querySelector(".madlib-form__input").value;
 	const listOfWords: Element = document.querySelector(".list-of-words");
 
-	const newWord = document.createElement("li");
-	newWord.textContent = input;
 
+	newWord.textContent = input;
+	newWord.setAttribute("class", "word-for-story");
 	listOfWords.appendChild(newWord);
+
+	const x = document.querySelectorAll(".word-for-story");
+	for(let i = 0; i < x.length; i++){
+		const y = x[i].textContent;
+		console.log(y);
+	}
 
 	main();
 });
+
+
+
+
+
 
 
