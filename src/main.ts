@@ -5,12 +5,12 @@ const openai = new OpenAI(OPENAI_API_KEY);
 
 const main = async () => {
 	const storyField: Element = document.querySelector(".story-field");
-  storyField.setAttribute("style", "animation-name: none;");
+	storyField.setAttribute("style", "animation-name: none;");
 	storyField.textContent = "loading...";
 
 	const gptResponse = await openai.complete({
 		engine: "text-davinci-002",
-		prompt: "tell me a funny story using these words: CSS, HTML, Javascript",
+		prompt: "tell me a funny story using these words: angular JS",
 		temperature: 0.6,
 		maxTokens: 150,
 		topP: 1,
@@ -26,8 +26,10 @@ main();
 
 
 
-const submitButton = document.querySelector(".madlib-form__submit-button");
-submitButton?.addEventListener("click", () => {
+const form = document.querySelector(".madlib-form");
+
+form?.addEventListener("submit", (e) => {
+  e.preventDefault();
 	const input: string = document.querySelector(".madlib-form__input").value;
 	const listOfWords: Element = document.querySelector(".list-of-words");
 
@@ -38,4 +40,5 @@ submitButton?.addEventListener("click", () => {
 
 	main();
 });
+
 
