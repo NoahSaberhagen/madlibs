@@ -3,6 +3,12 @@ import OpenAI from "openai-api";
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const openai = new OpenAI(OPENAI_API_KEY);
 
+
+const form = document.querySelector(".madlib-form");
+const goingToPrompt: string[] = ["HTML, CSS, Javascript"];
+
+
+
 const main = async () => {
 	const storyField: Element = document.querySelector(".story-field");
 	storyField.setAttribute("style", "animation-name: none;");
@@ -10,9 +16,9 @@ const main = async () => {
 
 	const gptResponse = await openai.complete({
 		engine: "text-davinci-002",
-		prompt: "tell me a funny story using these words: ",
+		prompt: "write a funny story using the word(s): " + goingToPrompt.join(" "),
 		temperature: 0.6,
-		maxTokens: 150,
+		maxTokens: 100,
 		topP: 1,
 		frequencyPenalty: 1,
 		presencePenalty: 1
@@ -24,34 +30,28 @@ const main = async () => {
 
 main();
 
-
-
-const form = document.querySelector(".madlib-form");
-
-const wordsForStory: string[] = [];
-
-
 form?.addEventListener("submit", (e) => {
 	e.preventDefault();
 
-	const newWord = document.createElement("li");
-	
 	const input: string = document.querySelector(".madlib-form__input").value;
-	const listOfWords: Element = document.querySelector(".list-of-words");
+	const listOfInputs: Element = document.querySelector(".list-of-inputs");
 
+
+	const newWord = document.createElement("li");
 
 	newWord.textContent = input;
-	newWord.setAttribute("class", "word-for-story");
-	listOfWords.appendChild(newWord);
+	newWord.setAttribute("class", "word-for-prompt");
+	listOfInputs.appendChild(newWord);
 
-	const x = document.querySelectorAll(".word-for-story");
-	for(let i = 0; i < x.length; i++){
-		const y = x[i].textContent;
-		console.log(y);
+	const wordsForPrompt = document.querySelectorAll(".word-for-prompt");
+	for(let i = 0; i < wordsForPrompt.length; i++){
+		const wordForPrompt: string = wordsForPrompt[i].textContent;
+		goingToPrompt[i] = wordForPrompt;
 	}
-
 	main();
 });
+
+
 
 
 
