@@ -1,12 +1,12 @@
 html{
-  color: white;
-  background-color: #040404;
+  color: #EAF6FF;
+  background-color: #07080a;
 }
 
 body,html {
   margin: 0;
   padding: 0;
-  font-family: 'Macondo', cursive;
+  font-family: 'Roboto Mono';
 }
 
 ul{
@@ -14,7 +14,7 @@ ul{
 }
 
 h1{
-  color: #E43F6F;
+  color: #F7CE5B;
   font-size: 3rem;
   margin: 0;
   font-family: 'Koulen', cursive;
@@ -26,10 +26,10 @@ h1{
 .story-field{
   padding: .2rem;
   width: 70vw;
-  font-family: 'Roboto Mono', monospace;
   font-size: 1.75rem;
+  font-family: 'Roboto Mono', monospace;
   margin: auto;
-  animation-duration: 1.75s;
+  animation-duration: 1.25s;
 }
 .madlib-form{
   display: flex;
@@ -37,10 +37,9 @@ h1{
   width: 100%;
 }
 .madlib-form__submit-button{
-  font-family: 'Koulen', cursive;
-  color: white;
-  background-color: #E43F6F;
-  border: 1px solid #E43F6F;
+  color: #EAF6FF;
+  background-color: #F7CE5B;
+  border: 1px solid #F7CE5B;
   font-size: 1rem;
   padding: 0;
   margin: auto;
@@ -50,14 +49,13 @@ h1{
   height: 1.75rem;
 }
 .madlib-form__submit-button:hover{
-  border: 1px solid white;
+  border: 1px solid #EAF6FF;
 }
 #app {
   margin: .5rem;
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  font-family: 'Macondo', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
