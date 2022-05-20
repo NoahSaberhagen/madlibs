@@ -6,7 +6,7 @@ const openai = new OpenAI(OPENAI_API_KEY);
 
 const form = document.querySelector(".madlib-form");
 
-let goingToPrompt: string[] = ["HTML, CSS, Javascript"];
+const goingToPrompt: string[] = ["HTML", "CSS", "Javascript"];
 
 
 //grabs response from api call using specified prompt and displays it in .story-field
@@ -25,7 +25,21 @@ const main = async () => {
 		presencePenalty: 1
 	});
 
-	storyField.textContent = gptResponse.data.choices[0].text;
+	let story: string = gptResponse.data.choices[0].text;
+
+	//DOM manipulation makes me feel like a mad scientist
+	//*for some reason, story[0,2] are blank spaces. Deduced using console.log. 
+	const storyStartIndex: number = 2;
+
+	for(let i = 0; i < goingToPrompt.length; i++){\
+		if(story.match(new RegExp(goingToPrompt[i], "ig")){
+			console.log(story.indexOf(goingToPrompt[i]) - storyStartIndex);
+		}
+	}
+
+
+
+	storyField.textContent = story;
 	storyField.setAttribute("style", "animation-name: fade-in;");
 };
 
