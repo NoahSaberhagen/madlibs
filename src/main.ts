@@ -9,7 +9,7 @@ const form = document.querySelector(".madlib-form");
 let goingToPrompt: string[] = ["HTML, CSS, Javascript"];
 
 
-//grabs response from api call
+//grabs response from api call using specified prompt and displays it in .story-field
 const main = async () => {
 	const storyField: Element = document.querySelector(".story-field");
 	storyField.setAttribute("style", "animation-name: none;");
@@ -31,6 +31,7 @@ const main = async () => {
 
 main();
 
+//submitting form updates prompt
 form?.addEventListener("submit", (e) => {
 	//so the page doesn't refresh
 	e.preventDefault(); 
@@ -39,7 +40,6 @@ form?.addEventListener("submit", (e) => {
 	const listOfInputs: Element = document.querySelector(".list-of-inputs");
 
 	const newWord = document.createElement("li");
-
 	newWord.textContent = input;
 	newWord.setAttribute("class", "word-for-prompt");
 	listOfInputs.appendChild(newWord);
@@ -51,21 +51,11 @@ form?.addEventListener("submit", (e) => {
 	}
 });
 
-
+//refreshes the .story-field
 const generateStoryButton = document.querySelector(".generate-story");
 generateStoryButton?.addEventListener("click", () => {
 	main();
 });
-
-
-const clearButton = document.querySelector(".clear-list-of-inputs");
-clearButton?.addEventListener("click", () => {
-	const listOfInputs: Element = document.querySelector(".list-of-inputs");
-	listOfInputs.textContent = undefined;
-	goingToPrompt = ["HTML, CSS, Javascript"];
-	main();
-});
-
 
 
 
