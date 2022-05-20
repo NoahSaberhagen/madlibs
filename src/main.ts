@@ -5,10 +5,11 @@ const openai = new OpenAI(OPENAI_API_KEY);
 
 
 const form = document.querySelector(".madlib-form");
+
 let goingToPrompt: string[] = ["HTML, CSS, Javascript"];
 
 
-
+//grabs response from api call
 const main = async () => {
 	const storyField: Element = document.querySelector(".story-field");
 	storyField.setAttribute("style", "animation-name: none;");
@@ -31,7 +32,8 @@ const main = async () => {
 main();
 
 form?.addEventListener("submit", (e) => {
-	e.preventDefault();
+	//so the page doesn't refresh
+	e.preventDefault(); 
 
 	const input: string = document.querySelector(".madlib-form__input").value;
 	const listOfInputs: Element = document.querySelector(".list-of-inputs");
@@ -62,7 +64,7 @@ clearButton?.addEventListener("click", () => {
 	listOfInputs.textContent = undefined;
 	goingToPrompt = ["HTML, CSS, Javascript"];
 	main();
-})
+});
 
 
 

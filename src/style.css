@@ -1,6 +1,6 @@
 html{
   color: #EAF6FF;
-  background-color: #020303;
+  background-color: #000001;
 }
 
 body,html {
@@ -14,7 +14,7 @@ ul{
 }
 
 h1{
-  color: #FF8811;
+  color: #66ff00;
   font-size: 3rem;
   margin: 0;
   font-family: 'Koulen', cursive;
@@ -36,9 +36,9 @@ h1{
   width: 100%;
 }
 .madlib-form__submit-button, .generate-story{
-  color: #07080a;
-  background-color: #FF8811;
-  border: 1px solid #FF8811;
+  color: #000001;
+  background-color: #66ff00;
+  border: 1px solid #66ff00;
   font-size: 1rem;
   font-family: 'Roboto Mono', monospace;
   font-weight: 800;
@@ -59,9 +59,9 @@ h1{
   border: none;
 }
 .clear-list-of-inputs{
-  color: #07080a;
-  background-color: #FF8811;
-  border: 1px solid #FF8811;
+  color: #000001;
+  background-color: #66ff00;
+  border: 1px solid #66ff00;
   font-size: 1rem;
   font-family: 'Roboto Mono', monospace;
   font-weight: 800;
