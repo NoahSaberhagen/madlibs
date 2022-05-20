@@ -28,12 +28,16 @@ const main = async () => {
 	let story: string = gptResponse.data.choices[0].text;
 
 	//DOM manipulation makes me feel like a mad scientist
-	//*for some reason, story[0,2] are blank spaces. Deduced using console.log. 
+	//*for some reason, story[0,2] are always blank spaces. Deduced using console.log. 
 	const storyStartIndex: number = 2;
 
-	for(let i = 0; i < goingToPrompt.length; i++){\
-		if(story.match(new RegExp(goingToPrompt[i], "ig")){
-			console.log(story.indexOf(goingToPrompt[i]) - storyStartIndex);
+	for(let i = 0; i < goingToPrompt.length; i++){
+		const regexp = new RegExp(goingToPrompt[i], "ig");
+		if(story.match(regexp)){
+			const openSpanIndex: number = story.search(regexp) - storyStartIndex;
+			const storySlice = story.slice(openSpanIndex + storyStartIndex);
+			console.log(storySlice);
+			story = story.slice(0, openSpanIndex + 1) + " <span>" + storySlice
 		}
 	}
 
