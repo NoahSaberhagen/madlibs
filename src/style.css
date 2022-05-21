@@ -1,5 +1,5 @@
 html{
-  color: #EAF6FF;
+  color: #ffffff;
   background-color: #000001;
 }
 
@@ -14,14 +14,14 @@ ul{
 }
 
 h1{
-  color: #66ff00;
+  color: #FFEB2A;
   font-size: 3rem;
   margin: 0;
   font-family: 'Koulen', cursive;
 }
 
 span{
-  color: #66ff00; 
+  color: #FFEB2A; 
 }
 .inputs{
   padding: .2rem;
@@ -31,18 +31,18 @@ span{
   padding: .2rem;
   width: 70vw;
   font-size: 2rem;
+  text-align: left;
   margin: auto;
-  animation-duration: .5s;
+  padding: 10px;
+  animation-duration: 1s;
 }
 .madlib-form{
-  display: flex;
-  justify-content: flex-start;
   width: 100%;
 }
 .madlib-form__submit-button, .generate-story{
   color: #000001;
-  background-color: #66ff00;
-  border: 1px solid #66ff00;
+  background-color: #FFEB2A;
+  border: 1px solid #FFEB2A;
   font-size: 1rem;
   font-family: 'Roboto Mono', monospace;
   font-weight: 800;
@@ -64,8 +64,8 @@ span{
 }
 .clear-list-of-inputs{
   color: #000001;
-  background-color: #66ff00;
-  border: 1px solid #66ff00;
+  background-color: #FFEB2A;
+  border: 1px solid #FFEB2A;
   font-size: 1rem;
   font-family: 'Roboto Mono', monospace;
   font-weight: 800;
@@ -74,7 +74,7 @@ span{
   width: 70px;
 }
 .madlib-form__submit-button:hover{
-  border: 1px solid #EAF6FF;
+  border: 1px solid #ffffff;
 }
 .list-of-inputs{
   font-size: 1.5rem;
@@ -95,6 +95,6 @@ span{
 
 
 @keyframes fade-in {
-  from {transform: translateX(900px);}
-  to {transform: translateX(0px);}
+  from {opacity: 0;}
+  to {opacity: 1;}
 }

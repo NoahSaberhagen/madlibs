@@ -6,7 +6,10 @@ const openai = new OpenAI(OPENAI_API_KEY);
 
 const form = document.querySelector(".madlib-form");
 
-const goingToPrompt: string[] = ["HTML", "CSS", "Javascript"];
+
+//array of user input words
+//"HTML", "CSS", "Javascript" are the default inputs for now
+let goingToPrompt: string[] = ["HTML", "CSS", "Javascript"];
 
 
 //grabs response from api call using specified prompt and displays it in .story-field
@@ -19,7 +22,7 @@ const main = async () => {
 		engine: "text-davinci-002",
 		prompt: "write a funny story using the word(s): " + goingToPrompt.join(" "),
 		temperature: 0.6,
-		maxTokens: 100,
+		maxTokens: 150,
 		topP: 1,
 		frequencyPenalty: 1,
 		presencePenalty: 1
@@ -49,8 +52,6 @@ const main = async () => {
 		}
 	}
 
-
-
 	storyField.innerHTML = story;
 	storyField.setAttribute("style", "animation-name: fade-in;");
 };
@@ -61,27 +62,17 @@ main();
 form?.addEventListener("submit", (e) => {
 	//so the page doesn't refresh
 	e.preventDefault(); 
-
 	const input: string = document.querySelector(".madlib-form__input").value;
-	const listOfInputs: Element = document.querySelector(".list-of-inputs");
-
-	const newWord = document.createElement("li");
-	newWord.textContent = input;
-	newWord.setAttribute("class", "word-for-prompt");
-	listOfInputs.appendChild(newWord);
-
-	const wordsForPrompt = document.querySelectorAll(".word-for-prompt");
-	for(let i = 0; i < wordsForPrompt.length; i++){
-		const wordForPrompt: string = wordsForPrompt[i].textContent;
-		goingToPrompt[i] = wordForPrompt;
-	}
-});
-
-//refreshes the .story-field
-const generateStoryButton = document.querySelector(".generate-story");
-generateStoryButton?.addEventListener("click", () => {
+		
 	main();
 });
+
+//reset
+const reset = document.querySelector(".madlib-form__reset");
+reset?.addEventListener("click", () => {
+	goingToPrompt = ["HTML", "CSS", "Javascript"];
+	main();
+})
 
 
 
