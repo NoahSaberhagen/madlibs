@@ -36,14 +36,22 @@ const main = async () => {
 		if(story.match(regexp)){
 			const openSpanIndex: number = story.search(regexp) - storyStartIndex;
 			const storySlice = story.slice(openSpanIndex + storyStartIndex);
-			console.log(storySlice);
 			story = story.slice(0, openSpanIndex + 1) + " <span>" + storySlice
+		}
+	}
+
+	for(let i = 0; i < goingToPrompt.length; i++){
+		const regexp = new RegExp(goingToPrompt[i], "ig");
+		if(story.match(regexp)){
+			const closeSpanIndex: number = story.search(regexp) + goingToPrompt[i].length - 1;
+			const storySlice = story.slice(closeSpanIndex + storyStartIndex);
+			story = story.slice(0, closeSpanIndex + 1) + "</span>" + storySlice
 		}
 	}
 
 
 
-	storyField.textContent = story;
+	storyField.innerHTML = story;
 	storyField.setAttribute("style", "animation-name: fade-in;");
 };
 

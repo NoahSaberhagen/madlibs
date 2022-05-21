@@ -19,6 +19,10 @@ h1{
   margin: 0;
   font-family: 'Koulen', cursive;
 }
+
+span{
+  color: #66ff00; 
+}
 .inputs{
   padding: .2rem;
   margin: 0;
