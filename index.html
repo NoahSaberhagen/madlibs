@@ -20,10 +20,12 @@
           <input class="madlib-form__input" type="text" placeholder="enter a word here" maxlength="15" pattern="[A-Za-z]*">
           <input class="madlib-form__submit-button" type="submit" value="+">
         </form>
-        <p class="counter orange">0/10</p>
+        <div class="counter-and-buttons">
+          <button class="madlib-form__generate yellow">generate()</button>
+          <button class="madlib-form__clear yellow">clear()</button>
+          <p class="counter orange">0/5</p>  
+        </div>
         <ul class="list-of-story-words orange"></ul>
-        <button class="madlib-form__clear yellow">clear()</button>
-        <button class="madlib-form__generate yellow">generate()</button>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>

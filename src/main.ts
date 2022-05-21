@@ -4,17 +4,15 @@ const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
 const openai = new OpenAI(OPENAI_API_KEY);
 
-
-
 //global variables
-let counter = document.querySelector(".counter") as HTMLParagraphElement;
+const counter = document.querySelector(".counter") as HTMLParagraphElement;
 const form = document.querySelector(".madlib-form");
 const inputField = document.querySelector(".madlib-form__input") as HTMLInputElement;
 const storyField = document.querySelector(".story-field") as HTMLParagraphElement;
 let storyWords: string[] = [];
 const wordList = document.querySelector(".list-of-story-words") as HTMLUListElement;
 
-//execute important functions
+//justUXthings
 inputField.focus();
 
 //mini functions
@@ -28,17 +26,19 @@ const removeStringDuplicates = (arr: string[]) => {
 	return arr.filter((item, index) => arr.indexOf(item) === index);
 };
 const updateCounter = () => {
-	counter.textContent = storyWords.length + "/10";
+	counter.textContent = storyWords.length + "/5";
 };
 
+//bigger functions
 //grabs response from api call using specified prompt and displays it in .story-field
 const main = async () => {
 	storyField.setAttribute("style", "animation-name: none;");
+	storyField.style.fontSize = "1.5rem";
 	storyField.textContent = "loading...";
 	
 	const gptResponse = await openai.complete({
 		engine: "text-davinci-002",
-		prompt: "tell me a funny story including these words:" + storyWords.join(" "),
+		prompt: "tell me a funny story including each of the following words:" + storyWords.join(" "),
 		temperature: 0.6,
 		maxTokens: 150,
 		topP: 1,
@@ -53,10 +53,11 @@ const main = async () => {
 	//*     /(HTML|CSS|JavaScript)/ig
 	const storyRegExp = new RegExp(`(${storyWords.join("|")})`, "ig");
 	
-	const storyHTML = story.replace(storyRegExp, "<span class=\"orange\">$&</span>");
+	const storyHTML = story.replace(storyRegExp, "<span class=\"orange placeholder-class\">$&</span>");
 
+	storyField.style.fontSize = "2rem";
 	storyField.innerHTML = storyHTML;
-	storyField.setAttribute("style", "animation-name: fade-in;");
+	// storyField.setAttribute("style", "animation-name: fade-in;");
 };
 
 //submitting form updates prompt
@@ -76,8 +77,17 @@ form?.addEventListener("submit", (e) => {
 	inputField.focus();
 	
 	populateStoryWords();
+	removeStringDuplicates(storyWords);
 	updateCounter();
 	console.log(storyWords);
+});
+
+//generate
+const generate = document.querySelector(".madlib-form__generate");
+generate?.addEventListener("click", () => {
+	main();
+
+	inputField.focus();
 });
 
 //clear
@@ -94,13 +104,7 @@ clear?.addEventListener("click", () => {
 	inputField.focus();
 });
 
-//generate
-const generate = document.querySelector(".madlib-form__generate");
-generate?.addEventListener("click", () => {
-	main();
 
-	inputField.focus();
-});
 
 
 

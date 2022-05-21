@@ -19,7 +19,6 @@ button{
   border-radius: none;
   background-color: #1E1E1E;
   color: #D4D4D4;
-  font-weight: 80000;
 }
 button:hover{
   text-decoration: underline;
@@ -39,21 +38,22 @@ body,html{
 .main-viewport{
   display: flex;
   justify-content: center;
-  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
 }
 
 .title-and-story{
   text-align: left;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 20px;
 }
 .story-field{
   width: 75vw;
   font-size: 2rem;
   text-align: left;
   margin: auto;
-  animation-duration: 1s;
+  animation-duration: .25s;
   flex-grow: 85;
 }
 
@@ -61,22 +61,24 @@ body,html{
   border-left: 5px solid #D4D4D4;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   font-size: 1.5rem;
-  padding: 1rem;
+  padding: 20px;
+  width: 25vw;
 }
-.madlib-form{
-  flex-grow: 10;
+.counter-and-buttons{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
 }
 .counter{
   color:#CE9178;
   margin: 0;
-  flex-grow: 5;
 }
-.list-of-inputs{
-  color: #CE9178;
+.list-of-story-words{
   padding: 0;
   margin: 0;
-  flex-grow: 85;
 }
 .madlib-form__input{
   background-color: #D4D4D4;
@@ -95,6 +97,11 @@ body,html{
   border: 2px solid #D4D4D4;
 }
 
+
+.story-field > .placeholder-class{
+  animation-name: fade-in-slow;
+  animation-duration: 4s;
+}
 .orange{
   color: #CE9178; 
 }
@@ -105,7 +112,15 @@ body,html{
   color: #DCDCAA;
 }
 
-@keyframes fade-in {
+/* @keyframes fade-in {
   from {opacity: 0;}
   to {opacity: 1;}
+} */
+
+@keyframes fade-in-slow {
+  0% {opacity: 0;}
+  25% {opacity: 0;}
+  100% {opacity: 1;}
 }
+
+
