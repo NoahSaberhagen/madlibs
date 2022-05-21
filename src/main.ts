@@ -7,30 +7,29 @@ const openai = new OpenAI(OPENAI_API_KEY);
 
 
 //global variables
-const counter = document.querySelector(".counter") as HTMLParagraphElement;
+let counter = document.querySelector(".counter") as HTMLParagraphElement;
 const form = document.querySelector(".madlib-form");
 const inputField = document.querySelector(".madlib-form__input") as HTMLInputElement;
 const storyField = document.querySelector(".story-field") as HTMLParagraphElement;
 let storyWords: string[] = [];
 const wordList = document.querySelector(".list-of-story-words") as HTMLUListElement;
 
-//important functions
+//execute important functions
 inputField.focus();
 
-
-//populates storyWords[]
-//this is wrong
+//mini functions
 const populateStoryWords = () => {
 	const list = document.getElementsByClassName("story-input");
 	for(let i = 0; i < list.length; i++){
 		storyWords[i] = list[i].textContent;
 	}
 };
-
-//self-explanatory
 const removeStringDuplicates = (arr: string[]) => {
 	return arr.filter((item, index) => arr.indexOf(item) === index);
-}; 
+};
+const updateCounter = () => {
+	counter.textContent = storyWords.length + "/10";
+};
 
 //grabs response from api call using specified prompt and displays it in .story-field
 const main = async () => {
@@ -77,6 +76,7 @@ form?.addEventListener("submit", (e) => {
 	inputField.focus();
 	
 	populateStoryWords();
+	updateCounter();
 	console.log(storyWords);
 });
 
@@ -88,6 +88,8 @@ clear?.addEventListener("click", () => {
 	wordList.innerHTML = "";
 	
 	storyField.textContent = "enter words ---->";
+
+	updateCounter();
 	
 	inputField.focus();
 });
