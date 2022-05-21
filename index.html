@@ -12,17 +12,22 @@
   <body>
     <div class="main-viewport">
       <div class="title-and-story">      
-        <h1>AI Madlibs</h1>
+        <h1><u>AI Madlibs</u></h1>
         <p class="story-field">loading...</p>
       </div>
       <div class="user-input-field"> 
         <form class="madlib-form" type="submit">
           <input class="madlib-form__input" type="text" placeholder="enter a word here" maxlength="15" pattern="[A-Za-z]*">
-          <button class="madlib-form__reset">reset</button>
+          <button class="madlib-form__clear">clear</button>
           <button class="madlib-form__generate">generate</button>
           <input class="madlib-form__submit-button" type="submit" value="+">
         </form>
-        <ul class="list-of-inputs"></ul>
+        <p class="counter">3/10</p>
+        <ul class="list-of-inputs">
+          <li class="story-input">HTML</li>
+          <li class="story-input">CSS</li>
+          <li class="story-input">Javascript</li>
+        </ul>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>

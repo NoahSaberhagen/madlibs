@@ -1,42 +1,37 @@
 html{
-  color: #ffffff;
-  background-color: #000001;
-}
 
+  color: #F2F4F3;
+  background-color: #0A0908;
+}
+span{
+  color: #0CCE6B; 
+}
+ul{
+  list-style: none;
+}
+h1{
+  height: 90px;
+  color: #F2F4F3;
+  font-size: 3.5rem;
+  margin: 0;
+  font-family: 'Koulen', cursive;
+  flex-grow: 15;
+}
 body,html {
-  height: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Roboto Mono', monospace;
 }
 
-ul{
-  list-style: none;
-}
-
-h1{
-  height: 90px;
-  color: #FFEB2A;
-  font-size: 3rem;
-  margin: 0;
-  font-family: 'Koulen', cursive;
-}
-
-span{
-  color: #FFEB2A; 
-}
-
 .main-viewport{
-  height: 100%;
   display: flex;
+  justify-content: center;
 }
+
 .title-and-story{
   text-align: left;
-  padding: 15px;
-}
-.inputs{
-  padding: .2rem;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 .story-field{
   width: 75vw;
@@ -44,21 +39,26 @@ span{
   text-align: left;
   margin: auto;
   animation-duration: 1s;
+  flex-grow: 85;
 }
 
-.madlib-form{
-  padding: 15px;
-  border-left: 5px solid #FFEB2A;
-  height: 10%;
+.user-input-field{
+  max-height: 100%;
+  font-size: 1.5rem;
 }
-.list-of-inputs{
-  color: #FFEB2A;
-  height: 90%;
-  border-left: 5px solid #FFEB2A;
+.madlib-form{
+  border-left: 5px solid #F2F4F3;
+}
+.counter{
+  color:#0CCE6B;
   margin: 0;
 }
-
-
+.list-of-inputs{
+  color: #0CCE6B;
+  border-left: 5px solid #F2F4F3;
+  padding: 0;
+  margin: 0;
+}
 
 @keyframes fade-in {
   from {opacity: 0;}

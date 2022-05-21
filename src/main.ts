@@ -31,7 +31,8 @@ const main = async () => {
 	let story: string = gptResponse.data.choices[0].text;
 
 	//DOM manipulation makes me feel like a mad scientist
-	//*for some reason, story[0,2] are always blank spaces. Deduced using console.log. 
+	//*for some reason, story[0,2] are always blank spaces. Deduced using console.log.
+	//*adding a space before and after <span> seems to automatically correct spacing issues
 	const storyStartIndex: number = 2;
 
 	for(let i = 0; i < goingToPrompt.length; i++){
@@ -39,7 +40,7 @@ const main = async () => {
 		if(story.match(regexp)){
 			const openSpanIndex: number = story.search(regexp) - storyStartIndex;
 			const storySlice = story.slice(openSpanIndex + storyStartIndex);
-			story = story.slice(0, openSpanIndex + 1) + " <span>" + storySlice
+			story = story.slice(0, openSpanIndex + 1) + " <span><u>" + storySlice
 		}
 	}
 
@@ -47,8 +48,8 @@ const main = async () => {
 		const regexp = new RegExp(goingToPrompt[i], "ig");
 		if(story.match(regexp)){
 			const closeSpanIndex: number = story.search(regexp) + goingToPrompt[i].length - 1;
-			const storySlice = story.slice(closeSpanIndex + storyStartIndex);
-			story = story.slice(0, closeSpanIndex + 1) + "</span>" + storySlice
+			const storySlice = story.slice(closeSpanIndex + storyStartIndex - 1);
+			story = story.slice(0, closeSpanIndex + 1) + "</u></span>" + storySlice
 		}
 	}
 
@@ -72,15 +73,25 @@ form?.addEventListener("submit", (e) => {
 
 	goingToPrompt = [];
 	const listOfInputs = document.querySelectorAll(".story-input");
+	// const listOfInputsStr = listOfInputs.toString();
+	// if(listOfInputsStr.match(input)){
+	// 	alert("No duplicates!! Angry face");
+	// 	return
+	// }
+
 	listOfInputs.forEach(input => {
 		const preppedInput: string = input.textContent;
 		goingToPrompt.push(preppedInput);
 	});
+
+
+	const counter: Element = document.querySelector(".counter");
+	counter.textContent = listOfInputs.length + "/10"
 });
 
-//reset
-const reset = document.querySelector(".madlib-form__reset");
-reset?.addEventListener("click", () => {
+//clear
+const clear = document.querySelector(".madlib-form__clear");
+clear?.addEventListener("click", () => {
 	goingToPrompt = ["HTML", "CSS", "Javascript"];
 	main();
 });
