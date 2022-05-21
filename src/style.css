@@ -1,37 +1,52 @@
 html{
-
-  color: #F2F4F3;
-  background-color: #0A0908;
-}
-span{
-  color: #0CCE6B; 
+  color: #D4D4D4;
+  background-color: #1E1E1E;
 }
 ul{
   list-style: none;
 }
 h1{
   height: 90px;
-  color: #F2F4F3;
+  color: #6A9955;
   font-size: 3.5rem;
+  font-weight: 2000;
   margin: 0;
-  font-family: 'Koulen', cursive;
   flex-grow: 15;
 }
+button {
+  font-family: monaco, Consolas, "Lucida Console", monospace;
+  border: none;
+  border-radius: none;
+  background-color: #1E1E1E;
+  color: #D4D4D4;
+  font-weight: 80000;
+}
+span{
+  color: #CE9178;
+}
 body,html {
+  box-sizing: border-box;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto Mono', monospace;
+  font-family: monaco, Consolas, "Lucida Console", monospace; 
+  font-size: 14px; 
+  font-style: normal; 
+  font-variant: normal; 
+  font-weight: 400; 
 }
 
 .main-viewport{
   display: flex;
   justify-content: center;
+  height: 100%;
 }
 
 .title-and-story{
   text-align: left;
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 }
 .story-field{
   width: 75vw;
@@ -43,21 +58,35 @@ body,html {
 }
 
 .user-input-field{
-  max-height: 100%;
+  border-left: 5px solid #D4D4D4;
+  display: flex;
+  flex-direction: column;
   font-size: 1.5rem;
+  padding: 1rem;
 }
 .madlib-form{
-  border-left: 5px solid #F2F4F3;
+  flex-grow: 10;
 }
 .counter{
-  color:#0CCE6B;
+  color:#CE9178;
   margin: 0;
+  flex-grow: 5;
 }
 .list-of-inputs{
-  color: #0CCE6B;
-  border-left: 5px solid #F2F4F3;
+  color: #CE9178;
   padding: 0;
   margin: 0;
+  flex-grow: 85;
+}
+
+.orange{
+  color: #CE9178; 
+}
+.blue{
+  color: #499CD6;
+}
+.yellow{
+  color: #DCDCAA;
 }
 
 @keyframes fade-in {

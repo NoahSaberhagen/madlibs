@@ -27,7 +27,7 @@ const main = async () => {
 		frequencyPenalty: 1,
 		presencePenalty: 1
 	});
-
+	console.log(gptResponse);
 	let story: string = gptResponse.data.choices[0].text;
 
 	//DOM manipulation makes me feel like a mad scientist
@@ -40,7 +40,7 @@ const main = async () => {
 		if(story.match(regexp)){
 			const openSpanIndex: number = story.search(regexp) - storyStartIndex;
 			const storySlice = story.slice(openSpanIndex + storyStartIndex);
-			story = story.slice(0, openSpanIndex + 1) + " <span><u>" + storySlice
+			story = story.slice(0, openSpanIndex + 1) + " <span>" + storySlice
 		}
 	}
 
@@ -49,7 +49,7 @@ const main = async () => {
 		if(story.match(regexp)){
 			const closeSpanIndex: number = story.search(regexp) + goingToPrompt[i].length - 1;
 			const storySlice = story.slice(closeSpanIndex + storyStartIndex - 1);
-			story = story.slice(0, closeSpanIndex + 1) + "</u></span>" + storySlice
+			story = story.slice(0, closeSpanIndex + 1) + "</span>" + storySlice
 		}
 	}
 
@@ -101,7 +101,6 @@ const generate = document.querySelector(".madlib-form__generate");
 generate?.addEventListener("click", () => {
 	main();
 });
-
 
 
 
