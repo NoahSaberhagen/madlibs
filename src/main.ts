@@ -9,51 +9,47 @@ const form = document.querySelector(".madlib-form");
 
 //array of user input words
 //"HTML", "CSS", "Javascript" are the default inputs for now
-let goingToPrompt: string[] = ["HTML", "CSS", "Javascript"];
+let storyWords: string[] = ["HTML", "CSS", "Javascript"];
 
+
+//updates ul to default
+//TODO: reset counter
+const regenerateList = () => {
+	const wordList = document.querySelector(".list-of-inputs") as HTMLUListElement;
+	wordList.innerHTML = "";
+	for(const word of storyWords){
+		const wordElement = document.createElement("li");
+		wordElement.textContent = word;
+		wordList?.appendChild(wordElement);
+	}
+};
 
 //grabs response from api call using specified prompt and displays it in .story-field
 const main = async () => {
-	const storyField: Element = document.querySelector(".story-field");
+	const storyField = document.querySelector(".story-field") as HTMLParagraphElement;
 	storyField.setAttribute("style", "animation-name: none;");
 	storyField.textContent = "loading...";
+	regenerateList();
 
 	const gptResponse = await openai.complete({
 		engine: "text-davinci-002",
-		prompt: "write a funny story using the word(s): " + goingToPrompt.join(" "),
+		prompt: "respond with a difficult question to these words:" + storyWords.join(" "),
 		temperature: 0.6,
 		maxTokens: 150,
 		topP: 1,
 		frequencyPenalty: 1,
 		presencePenalty: 1
 	});
-	console.log(gptResponse);
-	let story: string = gptResponse.data.choices[0].text;
 
+	const story: string = gptResponse.data.choices[0].text;
+	story.trimStart();
+	
 	//DOM manipulation makes me feel like a mad scientist
-	//*for some reason, story[0,2] are always blank spaces. Deduced using console.log.
-	//*adding a space before and after <span> seems to automatically correct spacing issues
-	const storyStartIndex: number = 2;
-
-	for(let i = 0; i < goingToPrompt.length; i++){
-		const regexp = new RegExp(goingToPrompt[i], "ig");
-		if(story.match(regexp)){
-			const openSpanIndex: number = story.search(regexp) - storyStartIndex;
-			const storySlice = story.slice(openSpanIndex + storyStartIndex);
-			story = story.slice(0, openSpanIndex + 1) + " <span>" + storySlice
-		}
-	}
-
-	for(let i = 0; i < goingToPrompt.length; i++){
-		const regexp = new RegExp(goingToPrompt[i], "ig");
-		if(story.match(regexp)){
-			const closeSpanIndex: number = story.search(regexp) + goingToPrompt[i].length - 1;
-			const storySlice = story.slice(closeSpanIndex + storyStartIndex - 1);
-			story = story.slice(0, closeSpanIndex + 1) + "</span>" + storySlice
-		}
-	}
-
-	storyField.innerHTML = story;
+	//*     /(HTML|CSS|JavaScript)/ig
+	const storyRegExp = new RegExp(`(${storyWords.join("|")})`, "ig");
+	const storyHTML = story.replace(storyRegExp, `<span class="orange">$&</span>`);
+	console.log(storyRegExp);
+	storyField.innerHTML = storyHTML;
 	storyField.setAttribute("style", "animation-name: fade-in;");
 };
 
@@ -62,16 +58,17 @@ main();
 //submitting form updates prompt
 form?.addEventListener("submit", (e) => {
 	//so the page doesn't refresh
-	e.preventDefault(); 
-	const input: string = document.querySelector(".madlib-form__input").value;
-	const newWord: Element = document.createElement("li");
-	newWord.textContent = input;
+	e.preventDefault();
+	storyWords = [];
+
+	const input = document.querySelector(".madlib-form__input") as HTMLInputElement;
+	const newWord = document.createElement("li");
+	newWord.textContent = input.value;
 	newWord.setAttribute("class", "story-input");
 
-	const listOfInputsWrapper: Element = document.querySelector(".list-of-inputs");
+	const listOfInputsWrapper = document.querySelector(".list-of-inputs") as HTMLUListElement;
 	listOfInputsWrapper.appendChild(newWord);
 
-	goingToPrompt = [];
 	const listOfInputs = document.querySelectorAll(".story-input");
 	// const listOfInputsStr = listOfInputs.toString();
 	// if(listOfInputsStr.match(input)){
@@ -81,9 +78,8 @@ form?.addEventListener("submit", (e) => {
 
 	listOfInputs.forEach(input => {
 		const preppedInput: string = input.textContent;
-		goingToPrompt.push(preppedInput);
+		storyWords.push(preppedInput);
 	});
-
 
 	const counter: Element = document.querySelector(".counter");
 	counter.textContent = listOfInputs.length + "/10"
@@ -92,7 +88,7 @@ form?.addEventListener("submit", (e) => {
 //clear
 const clear = document.querySelector(".madlib-form__clear");
 clear?.addEventListener("click", () => {
-	goingToPrompt = ["HTML", "CSS", "Javascript"];
+	storyWords = ["HTML", "CSS", "Javascript"];
 	main();
 });
 
@@ -101,7 +97,6 @@ const generate = document.querySelector(".madlib-form__generate");
 generate?.addEventListener("click", () => {
 	main();
 });
-
 
 
 

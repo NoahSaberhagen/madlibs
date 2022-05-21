@@ -13,7 +13,7 @@ h1{
   margin: 0;
   flex-grow: 15;
 }
-button {
+button{
   font-family: monaco, Consolas, "Lucida Console", monospace;
   border: none;
   border-radius: none;
@@ -21,10 +21,10 @@ button {
   color: #D4D4D4;
   font-weight: 80000;
 }
-span{
-  color: #CE9178;
+button:hover{
+  text-decoration: underline;
 }
-body,html {
+body,html{
   box-sizing: border-box;
   height: 100vh;
   margin: 0;
@@ -77,6 +77,22 @@ body,html {
   padding: 0;
   margin: 0;
   flex-grow: 85;
+}
+.madlib-form__input{
+  background-color: #D4D4D4;
+  border: none;
+  border-radius: none;
+  font-family: monaco, Consolas, "Lucida Console", monospace;
+}
+
+.madlib-form__submit-button{
+  border: #1E1E1E 2px solid;
+  background-color: #D4D4D4;
+  color: #1E1E1E;
+  border-radius: none;
+}
+.madlib-form__submit-button:hover{
+  border: 2px solid #D4D4D4;
 }
 
 .orange{
