@@ -4,6 +4,7 @@ html{
 }
 
 body,html {
+  height: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Roboto Mono', monospace;
@@ -14,6 +15,7 @@ ul{
 }
 
 h1{
+  height: 90px;
   color: #FFEB2A;
   font-size: 3rem;
   margin: 0;
@@ -23,75 +25,39 @@ h1{
 span{
   color: #FFEB2A; 
 }
+
+.main-viewport{
+  height: 100%;
+  display: flex;
+}
+.title-and-story{
+  text-align: left;
+  padding: 15px;
+}
 .inputs{
   padding: .2rem;
   margin: 0;
 }
 .story-field{
-  padding: .2rem;
-  width: 70vw;
+  width: 75vw;
   font-size: 2rem;
   text-align: left;
   margin: auto;
-  padding: 10px;
   animation-duration: 1s;
 }
+
 .madlib-form{
-  width: 100%;
-}
-.madlib-form__submit-button, .generate-story{
-  color: #000001;
-  background-color: #FFEB2A;
-  border: 1px solid #FFEB2A;
-  font-size: 1rem;
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 800;
-  padding: 0;
-  margin: auto;
-  width: 70px;
-}
-.generate-story{
-  border-radius: 2px;
-  width: 200px;
-  height: 30px;
-}
-.madlib-form__input, .madlib-form__submit-button, .clear-list-of-inputs{
-  height: 30px;
-  border-radius: 2px;
-}
-.madlib-form__input{
-  border: none;
-}
-.clear-list-of-inputs{
-  color: #000001;
-  background-color: #FFEB2A;
-  border: 1px solid #FFEB2A;
-  font-size: 1rem;
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 800;
-  padding: 0;
-  margin: auto;
-  width: 70px;
-}
-.madlib-form__submit-button:hover{
-  border: 1px solid #ffffff;
+  padding: 15px;
+  border-left: 5px solid #FFEB2A;
+  height: 10%;
 }
 .list-of-inputs{
-  font-size: 1.5rem;
-  padding: 0;
-
+  color: #FFEB2A;
+  height: 90%;
+  border-left: 5px solid #FFEB2A;
+  margin: 0;
 }
 
-
-#app {
-  margin: .5rem;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
 
 
 @keyframes fade-in {

@@ -63,8 +63,19 @@ form?.addEventListener("submit", (e) => {
 	//so the page doesn't refresh
 	e.preventDefault(); 
 	const input: string = document.querySelector(".madlib-form__input").value;
-		
-	main();
+	const newWord: Element = document.createElement("li");
+	newWord.textContent = input;
+	newWord.setAttribute("class", "story-input");
+
+	const listOfInputsWrapper: Element = document.querySelector(".list-of-inputs");
+	listOfInputsWrapper.appendChild(newWord);
+
+	goingToPrompt = [];
+	const listOfInputs = document.querySelectorAll(".story-input");
+	listOfInputs.forEach(input => {
+		const preppedInput: string = input.textContent;
+		goingToPrompt.push(preppedInput);
+	});
 });
 
 //reset
@@ -72,7 +83,13 @@ const reset = document.querySelector(".madlib-form__reset");
 reset?.addEventListener("click", () => {
 	goingToPrompt = ["HTML", "CSS", "Javascript"];
 	main();
-})
+});
+
+//generate
+const generate = document.querySelector(".madlib-form__generate");
+generate?.addEventListener("click", () => {
+	main();
+});
 
 
 
