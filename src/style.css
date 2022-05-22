@@ -22,10 +22,12 @@ button{
 }
 button:hover{
   text-decoration: underline;
+  cursor: pointer;
 }
 body,html{
   box-sizing: border-box;
   height: 100vh;
+  line-height: 1.5;
   margin: 0;
   padding: 0;
   font-family: monaco, Consolas, "Lucida Console", monospace; 
@@ -46,10 +48,11 @@ body,html{
   text-align: left;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  justify-content: center;
+  width: 80%;
 }
 .story-field{
-  width: 75vw;
+  max-width: 100%;
   font-size: 2rem;
   text-align: left;
   margin: auto;
@@ -58,14 +61,12 @@ body,html{
 }
 
 .user-input-field{
-  border-left: 5px solid #D4D4D4;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   font-size: 1.5rem;
-  padding: 20px;
-  width: 25vw;
+  width: 20%;
 }
 .counter-and-buttons{
   display: flex;
@@ -95,12 +96,13 @@ body,html{
 }
 .madlib-form__submit-button:hover{
   border: 2px solid #D4D4D4;
+  cursor: pointer;
 }
 
 
 .story-field > .placeholder-class{
   animation-name: fade-in-slow;
-  animation-duration: 4s;
+  animation-duration: 10s;
 }
 .orange{
   color: #CE9178; 
