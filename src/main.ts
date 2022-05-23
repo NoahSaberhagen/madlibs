@@ -5,7 +5,6 @@ const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const openai = new OpenAI(OPENAI_API_KEY);
 
 //global variables
-
 const counterDisplay = document.querySelector(".counter") as HTMLParagraphElement;
 const form = document.querySelector(".madlib-form");
 const inputField = document.querySelector(".madlib-form__input") as HTMLInputElement;
@@ -19,22 +18,21 @@ const counter = storyWords.length;
 inputField.focus();
 storyField.style.color = "#6A9955";
 
-
-//mini functions
-const populateStoryWords = () => {
-	const list = document.getElementsByClassName("story-input");
+//behind-the-scenes functions
+const addWordToStoryWords = () => {
+	const list = document.getElementsByClassName("story-word");
 	for(let i = 0; i < list.length; i++){
 		storyWords[i] = list[i].textContent;
 	}
 };
-const removeStringDuplicates = (arr: string[]) => {
+const removeDuplicates = (arr: string[]) => {
 	return arr.filter((item, index) => arr.indexOf(item) === index);
 };
 const updateCounterDisplay = () => {
 	counterDisplay.textContent = storyWords.length + "/5";
 };
 
-//bigger functions
+//user-facing functions
 //grabs response from api call using specified prompt and displays it in .story-field
 const main = async () => {
 	storyField.setAttribute("style", "animation-name: none;");
@@ -67,45 +65,67 @@ const main = async () => {
 	//storyField.setAttribute("style", "animation-name: fade-in;");
 };
 
-//submitting the form updates the prompt going to OpenAI
+//
 form?.addEventListener("submit", (e) => {
-	//so the page doesn't refresh
+	//prevents page refresh
 	e.preventDefault();
 
+	//prevents user from exceeding word limit
 	if(storyWords.length >= 5){
 		alert("you have reached maximum words");
 		return;
 	}
 
+	//Provides UI
 	const input = document.querySelector(".madlib-form__input") as HTMLInputElement;
-	
-	//populates html with an li wrapper element for story word and button
+
+	//populates an li wrapping story word and button
 	const newWrapper = document.createElement("li");
+
 	newWrapper.style.display = "flex";
-	newWrapper.style.justifyContent = "space-evenly";
+	newWrapper.style.justifyContent = "space-between";
+	newWrapper.style.margin = "0";
 
 	wordList.appendChild(newWrapper);
 
-	//populates html with story words
+	//populates story word
 	const newWord = document.createElement("p");
+	newWord.setAttribute("class", "story-word");
 	newWord.textContent = input.value;
-	newWord.setAttribute("class", "story-input");
-	
+
 	newWrapper.appendChild(newWord);
 
-	//populates html with remove buttons for each story word
+	//populates remove button
 	const newRemoveButton = document.createElement("button");
-	newRemoveButton.setAttribute("class", "yellow");
-	newRemoveButton.style.fontSize = "1rem";
+	newRemoveButton.setAttribute("class", "remove-button yellow");
 	newRemoveButton.textContent = "remove()";
 
+	newRemoveButton.style.fontSize = "1rem";
+
 	newWrapper.appendChild(newRemoveButton);
+
+	//remove button functionality
+	newRemoveButton.addEventListener("click", () => {
+		const num = storyWords.indexOf(newWord.textContent)
+		storyWords.splice(num, 1);
+		console.log(storyWords);
+
+		newRemoveButton.parentElement?.remove();
+		newWord.remove();
+		newRemoveButton.remove();
+
+		updateCounterDisplay();
+	});
 	
+	//refreshes input field
 	inputField.value = "";
 	inputField.focus();
 
-	populateStoryWords();
-	removeStringDuplicates(storyWords);
+	//updates storyWords
+	addWordToStoryWords();
+	removeDuplicates(storyWords);
+
+	//updates counter
 	updateCounterDisplay();
 });
 
@@ -113,7 +133,6 @@ form?.addEventListener("submit", (e) => {
 const generate = document.querySelector(".madlib-form__generate");
 generate?.addEventListener("click", () => {
 	main();
-
 	inputField.focus();
 });
 
@@ -132,6 +151,7 @@ clear?.addEventListener("click", () => {
 	
 	inputField.focus();
 });
+
 
 
 
