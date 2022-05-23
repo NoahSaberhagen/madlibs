@@ -49,13 +49,14 @@ body,html{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 80%;
+  padding: 10px 15px;
+  width: 83%;
 }
 .story-field{
   max-width: 100%;
   font-size: 2rem;
   text-align: left;
-  margin: auto;
+  margin: 0;
   animation-duration: .25s;
   flex-grow: 85;
 }
@@ -66,7 +67,8 @@ body,html{
   justify-content: flex-start;
   align-items: flex-start;
   font-size: 1.5rem;
-  width: 20%;
+  padding: 10px 15px;
+  width: 17%;
 }
 .counter-and-buttons{
   display: flex;
@@ -102,7 +104,7 @@ body,html{
 
 .story-field > .placeholder-class{
   animation-name: fade-in-slow;
-  animation-duration: 10s;
+  animation-duration: 2.5s;
 }
 .orange{
   color: #CE9178; 
@@ -121,7 +123,7 @@ body,html{
 
 @keyframes fade-in-slow {
   0% {opacity: 0;}
-  25% {opacity: 0;}
+  20% {opacity: 0;}
   100% {opacity: 1;}
 }
 

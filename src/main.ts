@@ -79,11 +79,27 @@ form?.addEventListener("submit", (e) => {
 
 	const input = document.querySelector(".madlib-form__input") as HTMLInputElement;
 	
-	const newWord = document.createElement("li");
+	//populates html with an li wrapper element for story word and button
+	const newWrapper = document.createElement("li");
+	newWrapper.style.display = "flex";
+	newWrapper.style.justifyContent = "space-evenly";
+
+	wordList.appendChild(newWrapper);
+
+	//populates html with story words
+	const newWord = document.createElement("p");
 	newWord.textContent = input.value;
 	newWord.setAttribute("class", "story-input");
 	
-	wordList.appendChild(newWord);
+	newWrapper.appendChild(newWord);
+
+	//populates html with remove buttons for each story word
+	const newRemoveButton = document.createElement("button");
+	newRemoveButton.setAttribute("class", "yellow");
+	newRemoveButton.style.fontSize = "1rem";
+	newRemoveButton.textContent = "remove()";
+
+	newWrapper.appendChild(newRemoveButton);
 	
 	inputField.value = "";
 	inputField.focus();
@@ -110,7 +126,7 @@ clear?.addEventListener("click", () => {
 
 	storyField.style.color = "#6A9955";
 	storyField.innerHTML = `//add some words using the input field over there --><br>
-	//click the generate() button when you're ready to load`;
+	//then, click generate()`;
 
 	updateCounterDisplay();
 	
