@@ -9,20 +9,15 @@ const counterDisplay = document.querySelector(".counter") as HTMLParagraphElemen
 const form = document.querySelector(".madlib-form");
 const inputField = document.querySelector(".madlib-form__input") as HTMLInputElement;
 const storyField = document.querySelector(".story-field") as HTMLParagraphElement;
-const wordList = document.querySelector(".list-of-story-words") as HTMLUListElement;
+const storyWordsField = document.querySelector(".list-of-story-words") as HTMLUListElement;
 
 let storyWords: string[] = [];
-const counter = storyWords.length;
-
-//justUXthings
-inputField.focus();
-storyField.style.color = "#6A9955";
 
 //behind-the-scenes functions
 const addWordToStoryWords = () => {
-	const list = document.getElementsByClassName("story-word");
-	for(let i = 0; i < list.length; i++){
-		storyWords[i] = list[i].textContent;
+	const words = document.getElementsByClassName("story-word");
+	for(let i = 0; i < words.length; i++){
+		storyWords[i] = words[i].textContent as string;
 	}
 };
 const removeDuplicates = (arr: string[]) => {
@@ -32,8 +27,11 @@ const updateCounterDisplay = () => {
 	counterDisplay.textContent = storyWords.length + "/5";
 };
 
+//loads UX
+inputField.focus();
+storyField.style.color = "#6A9955";
+
 //user-facing functions
-//grabs response from api call using specified prompt and displays it in .story-field
 const main = async () => {
 	storyField.setAttribute("style", "animation-name: none;");
 	storyField.style.color = "#6A9955";
@@ -61,11 +59,8 @@ const main = async () => {
 
 	storyField.style.fontSize = "2rem";
 	storyField.innerHTML = storyHTML;
-	//this is in case I change my mind and want to restyle the animations:
-	//storyField.setAttribute("style", "animation-name: fade-in;");
 };
 
-//
 form?.addEventListener("submit", (e) => {
 	//prevents page refresh
 	e.preventDefault();
@@ -76,26 +71,25 @@ form?.addEventListener("submit", (e) => {
 		return;
 	}
 
-	//Provides UI
 	const input = document.querySelector(".madlib-form__input") as HTMLInputElement;
-
-	//populates an li wrapping story word and button
+	
+	//populates an li wrapper for story word and button
 	const newWrapper = document.createElement("li");
 
 	newWrapper.style.display = "flex";
 	newWrapper.style.justifyContent = "space-between";
 	newWrapper.style.margin = "0";
 
-	wordList.appendChild(newWrapper);
+	storyWordsField.appendChild(newWrapper);
 
-	//populates story word
+	//story word
 	const newWord = document.createElement("p");
 	newWord.setAttribute("class", "story-word");
 	newWord.textContent = input.value;
 
 	newWrapper.appendChild(newWord);
 
-	//populates remove button
+	//remove button
 	const newRemoveButton = document.createElement("button");
 	newRemoveButton.setAttribute("class", "remove-button yellow");
 	newRemoveButton.textContent = "remove()";
@@ -106,8 +100,8 @@ form?.addEventListener("submit", (e) => {
 
 	//remove button functionality
 	newRemoveButton.addEventListener("click", () => {
-		const num = storyWords.indexOf(newWord.textContent)
-		storyWords.splice(num, 1);
+		const idx = storyWords.indexOf(newWord.textContent as string);
+		storyWords.splice(idx, 1);
 		console.log(storyWords);
 
 		newRemoveButton.parentElement?.remove();
@@ -121,11 +115,8 @@ form?.addEventListener("submit", (e) => {
 	inputField.value = "";
 	inputField.focus();
 
-	//updates storyWords
 	addWordToStoryWords();
 	removeDuplicates(storyWords);
-
-	//updates counter
 	updateCounterDisplay();
 });
 
@@ -141,7 +132,7 @@ const clear = document.querySelector(".madlib-form__clear");
 clear?.addEventListener("click", () => {
 	storyWords = [];
 	
-	wordList.innerHTML = "";
+	storyWordsField.innerHTML = "";
 
 	storyField.style.color = "#6A9955";
 	storyField.innerHTML = `//add some words using the input field over there --><br>
@@ -149,6 +140,7 @@ clear?.addEventListener("click", () => {
 
 	updateCounterDisplay();
 	
+	inputField.value = "";
 	inputField.focus();
 });
 
