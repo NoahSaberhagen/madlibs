@@ -101,9 +101,22 @@ body,html{
   cursor: pointer;
 }
 
+.genre{
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  font-size: 1rem;
+}
+.genre-select{
+  height: 20px;
+  border: none;
+  background-color: #D4D4D4;
+  font-family: monaco, Consolas, "Lucida Console", monospace;
+}
 
-.story-field > .placeholder-class{
-  animation-name: fade-in-slow;
+
+.story-field > .fade-in-slowly{
+  animation-name: fade-in-slowly;
   animation-duration: 2.5s;
 }
 .orange{
@@ -115,13 +128,16 @@ body,html{
 .yellow{
   color: #DCDCAA;
 }
+.green{
+  color: #6A9955;
+}
 
 /* @keyframes fade-in {
   from {opacity: 0;}
   to {opacity: 1;}
 } */
 
-@keyframes fade-in-slow {
+@keyframes fade-in-slowly {
   0% {opacity: 0;}
   20% {opacity: 0;}
   100% {opacity: 1;}
