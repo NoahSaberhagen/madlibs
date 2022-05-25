@@ -1,3 +1,6 @@
+// BUGS
+// story-display doesnt highlight story words if they are followed by a period
+
 import OpenAI from "openai-api";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
@@ -8,15 +11,15 @@ const openai = new OpenAI(OPENAI_API_KEY);
 const counterDisplay = document.querySelector(".counter") as HTMLParagraphElement;
 const form = document.querySelector(".madlib-form");
 const inputField = document.querySelector(".madlib-form__input") as HTMLInputElement;
-const storyField = document.querySelector(".story-field") as HTMLParagraphElement;
-const storyWordsField = document.querySelector(".list-of-story-words") as HTMLUListElement;
-const storyGenre: string = 
-	document.querySelector(".genre-select") === null ? "" : document.querySelector(".genre-select").value
+const storyDisplay = document.querySelector(".story-display") as HTMLParagraphElement;
+const storyWordsDisplay = document.querySelector(".story-words-display") as HTMLUListElement;
+const storyGenre: string =  document.querySelector(".genre-select").value;
+const storyStyle: string = document.querySelector(".style-select").value;
 let storyWords: string[] = [];
 
 // loads UX-----------------------------------------------------------------------------------------------
 inputField.focus();
-storyField.style.color = "#6A9955";
+storyDisplay.style.color = "#6A9955";
 
 // behind-the-scenes functions----------------------------------------------------------------------------
 const addWordToStoryWords = () => {
@@ -29,21 +32,21 @@ const removeDuplicates = (arr: string[]) => {
 	return Array.from(new Set(arr));
 };
 const updateCounterDisplay = () => {
-	counterDisplay.textContent = storyWords.length + "/5";
+	counterDisplay.textContent = storyWords.length + "/3";
 };
 
 // user-facing functions--------------------------------------------------------------------------------
-// TODO rename main
-const main = async () => {
-	storyField.setAttribute("style", "animation-name: none;");
-	storyField.style.color = "#6A9955";
-	storyField.textContent = "//loading...";
+const updateStoryDisplay = async () => {
+	// Phase 1. displays "loading..." while retreives OpenAI response using .prompt-------------
+	storyDisplay.setAttribute("style", "animation-name: none;");
+	storyDisplay.style.color = "#6A9955";
+	storyDisplay.textContent = "//loading...";
 	
 	const gptResponse = await openai.complete({
 		engine: "text-davinci-002",
-		prompt: "tell me a" + storyGenre + " story using all of these words:" + storyWords.join(" "),
+		prompt: "write a story using these words:" + storyWords.join(" "),
 		temperature: 0.6,
-		maxTokens: 150,
+		maxTokens: 200,
 		topP: 1,
 		frequencyPenalty: 1,
 		presencePenalty: 1
@@ -52,34 +55,31 @@ const main = async () => {
 	const story: string = gptResponse.data.choices[0].text;
 	story.trimStart();
 
-	// UI
-	storyField.style.color = "#D4D4D4";
+	// Phase 2: displays story in white text with orange highlighted story words-------------
+	storyDisplay.style.color = "#D4D4D4";
+	storyDisplay.style.fontSize = "2rem";
 
-	const storyWordsRegExp = storyWords.map((storyWord) => {
+	// simplifies story words to singular in case the user inputs a plural word
+	// creates a single RegExp for all story words
+	const storyWordsRegExpArr = storyWords.map((storyWord) => {
 		let newStoryWord = storyWord;
 		if(storyWord[storyWord.length - 1].toLowerCase() === "s"){
 			newStoryWord = storyWord.slice(0, -1);
 		}
 		return `( ${newStoryWord}( |'s|s))\\W*`;
 	});
-	console.log(storyWords);
 
-	const storyRegExp = new RegExp(`(${storyWordsRegExp.join("|")})`, "ig");
-
-	console.log(storyRegExp);
+	const storyRegExp = new RegExp(`(${storyWordsRegExpArr.join("|")})`, "ig");
 
 	const storyHTML = story.replace(storyRegExp, "<span class=\"orange fade-in-slowly\">$&</span>");
-
-	storyField.style.fontSize = "2rem";
-	storyField.innerHTML = storyHTML;
+	storyDisplay.innerHTML = storyHTML;
 };
 
 form?.addEventListener("submit", (e) => {
-	//prevents page refresh
 	e.preventDefault();
 
 	//prevents user from exceeding word limit
-	if(storyWords.length >= 5){
+	if(storyWords.length >= 3){
 		alert("you have reached maximum words");
 		return;
 	}
@@ -93,7 +93,7 @@ form?.addEventListener("submit", (e) => {
 	newWrapper.style.justifyContent = "space-between";
 	newWrapper.style.margin = "0";
 
-	storyWordsField.appendChild(newWrapper);
+	storyWordsDisplay.appendChild(newWrapper);
 
 	//story word
 	const newWord = document.createElement("p");
@@ -135,22 +135,22 @@ form?.addEventListener("submit", (e) => {
 	console.log(storyWords);
 });
 
-const generate = document.querySelector(".madlib-form__generate");
-generate?.addEventListener("click", () => {
+const generateStory = document.querySelector(".madlib-form__generate-story");
+generateStory?.addEventListener("click", () => {
 	storyWords = removeDuplicates(storyWords);
-	main();
+	updateStoryDisplay();
 	inputField.focus();
 });
 
-const clear = document.querySelector(".madlib-form__clear");
-clear?.addEventListener("click", () => {
+const clearStoryWords = document.querySelector(".madlib-form__clear-story-words");
+clearStoryWords?.addEventListener("click", () => {
 	storyWords = [];
 	
-	storyWordsField.innerHTML = "";
+	storyWordsDisplay.innerHTML = "";
 
-	storyField.style.color = "#6A9955";
-	storyField.innerHTML = `//add some words using the input field over there --><br>
-	//then, click generate()`;
+	storyDisplay.style.color = "#6A9955";
+	storyDisplay.innerHTML = `//add some words using the input field over there --><br>
+	//then, click generateStory()`;
 
 	updateCounterDisplay();
 	

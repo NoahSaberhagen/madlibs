@@ -13,7 +13,7 @@
     <div class="main-viewport">
       <div class="title-and-story">      
         <h1>//AI MADLIBS</h1>
-        <p class="story-field">//add some words using the input field over there --><br>
+        <p class="story-display">//add some words using the input field over there --><br>
           //then, click generate()
         </p>
       </div>
@@ -24,20 +24,27 @@
         </form>
         <div class="genre">
           <p class="genre-caption green">//select a genre for the story</p>
+          <select class="style-select">
+            <option class="style-option" value="poem">poem</option>
+            <option class="style-option" value="speech">speech</option>
+            <option class="style-option" value="rap lyrics">rap lyrics</option>
+            <option class="style-option" value="blog post">blog post</option>
+            <option class="style-option" value="news article">news article</option>
+          </select>
           <select class="genre-select">
             <option class="genre-option" value="funny">funny</option>
-            <option class="genre-option" value="frightening">frightening</option>
             <option class="genre-option" value="happy">happy</option>
             <option class="genre-option" value="inspirational">inspirational</option>
             <option class="genre-option" value="sad">sad</option>
+            <option class="genre-option" value="scary">scary</option>
           </select>
         </div>
         <div class="counter-and-buttons">
-          <button class="madlib-form__generate yellow">generate()</button>
-          <button class="madlib-form__clear yellow">clear()</button> 
+          <button class="madlib-form__generate-story yellow">generateStory()</button>
+          <button class="madlib-form__clear-story-words yellow">clearStoryWords()</button> 
         </div>
-        <p class="counter orange">0/5</p> 
-        <ul class="list-of-story-words orange"></ul>
+        <p class="counter orange">0/3</p> 
+        <ul class="story-words-display orange"></ul>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
