@@ -10,43 +10,34 @@
     <title>AI MADLIBS</title>
   </head>
   <body>
-    <div class="main-viewport">
-      <div class="title-and-story">      
-        <h1>//AI MADLIBS</h1>
-        <p class="story-display">//add some words using the input field over there --><br>
-          //then, click generate()
-        </p>
-      </div>
+    <main class="title-and-story">      
+      <h1>//AI MADLIBS</h1>
+      <p class="story-display">//add some words using the input field over there --><br>
+        //then, click generate()
+      </p>
+    </main>
+
+    <aside class="side-menu">
+      <button aria-label="open menu" class="toggle-menu">      
+        <svg focusable="false" viewBox="0 0 24 24" fill="#D4D4D4">
+          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+        </svg>
+      </button>
       <div class="user-input-field"> 
         <form class="madlib-form" type="submit">
-          <input class="madlib-form__input" type="text" placeholder="enter a word here" maxlength="15" pattern="[A-Za-z]*">
+          <input class="madlib-form__input" type="text" placeholder="enter a word here" minlength="1" maxlength="15">
           <input class="madlib-form__submit-button" type="submit" value="+">
         </form>
-        <div class="genre">
-          <p class="genre-caption green">//select a genre for the story</p>
-          <select class="style-select">
-            <option class="style-option" value="poem">poem</option>
-            <option class="style-option" value="speech">speech</option>
-            <option class="style-option" value="rap lyrics">rap lyrics</option>
-            <option class="style-option" value="blog post">blog post</option>
-            <option class="style-option" value="news article">news article</option>
-          </select>
-          <select class="genre-select">
-            <option class="genre-option" value="funny">funny</option>
-            <option class="genre-option" value="happy">happy</option>
-            <option class="genre-option" value="inspirational">inspirational</option>
-            <option class="genre-option" value="sad">sad</option>
-            <option class="genre-option" value="scary">scary</option>
-          </select>
+        <div class="story-words-and-counter-wrapper">
+          <p class="story-words-counter orange">0/3</p> 
+          <ul class="story-words-list orange"></ul>
         </div>
-        <div class="counter-and-buttons">
-          <button class="madlib-form__generate-story yellow">generateStory()</button>
-          <button class="madlib-form__clear-story-words yellow">clearStoryWords()</button> 
+        <div class="generate-and-clear-wrapper">
+          <button class="madlib-form__generate-story blue">generateStory<span class="white">()</span></button>
+          <button class="madlib-form__clear-story-words blue">clearStoryWords<span class="white">()</span></button> 
         </div>
-        <p class="counter orange">0/3</p> 
-        <ul class="story-words-display orange"></ul>
       </div>
-    </div>
+    </aside>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

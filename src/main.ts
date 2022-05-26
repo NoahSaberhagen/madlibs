@@ -1,25 +1,34 @@
-// BUGS
-// story-display doesnt highlight story words if they are followed by a period
+// BUGS:
+// 1. story-display doesnt highlight story words if they are followed by . or -
 
 import OpenAI from "openai-api";
+import initializeToggleMenuListener, { updateMenuElement } from "./menu";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
 const openai = new OpenAI(OPENAI_API_KEY);
 
-//global variables-----------------------------------------------------------------------------------------
-const counterDisplay = document.querySelector(".counter") as HTMLParagraphElement;
-const form = document.querySelector(".madlib-form");
-const inputField = document.querySelector(".madlib-form__input") as HTMLInputElement;
-const storyDisplay = document.querySelector(".story-display") as HTMLParagraphElement;
-const storyWordsDisplay = document.querySelector(".story-words-display") as HTMLUListElement;
-const storyGenre: string =  document.querySelector(".genre-select").value;
-const storyStyle: string = document.querySelector(".style-select").value;
+// global variables-----------------------------------------------------------------------------------------
+const counterDisplayHTML = document.querySelector(".story-words-counter") as HTMLParagraphElement;
+const formHTML = document.querySelector(".madlib-form");
+const inputFieldHTML = document.querySelector(".madlib-form__input") as HTMLInputElement;
+const storyDisplayHTML = document.querySelector(".story-display") as HTMLParagraphElement;
+const storyWordsListHTML = document.querySelector(".story-words-list") as HTMLUListElement;
+
+
+// application state---------------------------------------------------------------------------------------
+let isMenuOpen = true;
 let storyWords: string[] = [];
 
+// state reducers------------------------------------------------------------------------------------------
+const toggleMenuOpen = () => {
+	isMenuOpen = !isMenuOpen;
+};
+
 // loads UX-----------------------------------------------------------------------------------------------
-inputField.focus();
-storyDisplay.style.color = "#6A9955";
+inputFieldHTML.focus();
+storyDisplayHTML.style.color = "#6A9955";
+initializeToggleMenuListener(isMenuOpen, toggleMenuOpen);
 
 // behind-the-scenes functions----------------------------------------------------------------------------
 const addWordToStoryWords = () => {
@@ -31,16 +40,17 @@ const addWordToStoryWords = () => {
 const removeDuplicates = (arr: string[]) => {
 	return Array.from(new Set(arr));
 };
-const updateCounterDisplay = () => {
-	counterDisplay.textContent = storyWords.length + "/3";
+const updateCounterDisplayHTML = () => {
+	counterDisplayHTML.textContent = storyWords.length + "/3";
 };
 
+
 // user-facing functions--------------------------------------------------------------------------------
-const updateStoryDisplay = async () => {
+const updateStoryDisplayHTML = async () => {
 	// Phase 1. displays "loading..." while retreives OpenAI response using .prompt-------------
-	storyDisplay.setAttribute("style", "animation-name: none;");
-	storyDisplay.style.color = "#6A9955";
-	storyDisplay.textContent = "//loading...";
+	storyDisplayHTML.setAttribute("style", "animation-name: none;");
+	storyDisplayHTML.style.color = "#6A9955";
+	storyDisplayHTML.textContent = "//loading...";
 	
 	const gptResponse = await openai.complete({
 		engine: "text-davinci-002",
@@ -56,8 +66,8 @@ const updateStoryDisplay = async () => {
 	story.trimStart();
 
 	// Phase 2: displays story in white text with orange highlighted story words-------------
-	storyDisplay.style.color = "#D4D4D4";
-	storyDisplay.style.fontSize = "2rem";
+	storyDisplayHTML.style.color = "#D4D4D4";
+	storyDisplayHTML.style.fontSize = "1.8rem";
 
 	// simplifies story words to singular in case the user inputs a plural word
 	// creates a single RegExp for all story words
@@ -72,10 +82,10 @@ const updateStoryDisplay = async () => {
 	const storyRegExp = new RegExp(`(${storyWordsRegExpArr.join("|")})`, "ig");
 
 	const storyHTML = story.replace(storyRegExp, "<span class=\"orange fade-in-slowly\">$&</span>");
-	storyDisplay.innerHTML = storyHTML;
+	storyDisplayHTML.innerHTML = storyHTML;
 };
 
-form?.addEventListener("submit", (e) => {
+formHTML?.addEventListener("submit", (e) => {
 	e.preventDefault();
 
 	//prevents user from exceeding word limit
@@ -93,7 +103,7 @@ form?.addEventListener("submit", (e) => {
 	newWrapper.style.justifyContent = "space-between";
 	newWrapper.style.margin = "0";
 
-	storyWordsDisplay.appendChild(newWrapper);
+	storyWordsListHTML.appendChild(newWrapper);
 
 	//story word
 	const newWord = document.createElement("p");
@@ -104,8 +114,8 @@ form?.addEventListener("submit", (e) => {
 
 	//remove button
 	const newRemoveButton = document.createElement("button");
-	newRemoveButton.setAttribute("class", "remove-button yellow");
-	newRemoveButton.textContent = "remove()";
+	newRemoveButton.setAttribute("class", "remove-button blue");
+	newRemoveButton.innerHTML = "remove<span class=\"white\">()</span>";
 
 	newRemoveButton.style.fontSize = "1rem";
 
@@ -115,48 +125,45 @@ form?.addEventListener("submit", (e) => {
 	newRemoveButton.addEventListener("click", () => {
 		const idx = storyWords.indexOf(newWord.textContent as string);
 		storyWords.splice(idx, 1);
-		console.log(storyWords);
 
 		newRemoveButton.parentElement?.remove();
 		newWord.remove();
 		newRemoveButton.remove();
 
-		updateCounterDisplay();
+		updateCounterDisplayHTML();
 	});
 	
 	//refreshes input field
-	inputField.value = "";
-	inputField.focus();
+	inputFieldHTML.value = "";
+	inputFieldHTML.focus();
 
 	addWordToStoryWords();
-
-	updateCounterDisplay();
-
-	console.log(storyWords);
+	updateCounterDisplayHTML();
 });
 
 const generateStory = document.querySelector(".madlib-form__generate-story");
 generateStory?.addEventListener("click", () => {
 	storyWords = removeDuplicates(storyWords);
-	updateStoryDisplay();
-	inputField.focus();
+	updateStoryDisplayHTML();
+
 });
 
 const clearStoryWords = document.querySelector(".madlib-form__clear-story-words");
 clearStoryWords?.addEventListener("click", () => {
 	storyWords = [];
 	
-	storyWordsDisplay.innerHTML = "";
+	storyWordsListHTML.innerHTML = "";
 
-	storyDisplay.style.color = "#6A9955";
-	storyDisplay.innerHTML = `//add some words using the input field over there --><br>
+	storyDisplayHTML.style.color = "#6A9955";
+	storyDisplayHTML.innerHTML = `//add some words using the input field over there --><br>
 	//then, click generateStory()`;
 
-	updateCounterDisplay();
+	updateCounterDisplayHTML();
 	
-	inputField.value = "";
-	inputField.focus();
+	inputFieldHTML.value = "";
 });
+
+
 
 
 
