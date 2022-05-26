@@ -23,12 +23,13 @@ let storyWords: string[] = [];
 // state reducers------------------------------------------------------------------------------------------
 const toggleMenuOpen = () => {
 	isMenuOpen = !isMenuOpen;
+	updateMenuElement(isMenuOpen);
 };
 
 // loads UX-----------------------------------------------------------------------------------------------
 inputFieldHTML.focus();
 storyDisplayHTML.style.color = "#6A9955";
-initializeToggleMenuListener(isMenuOpen, toggleMenuOpen);
+initializeToggleMenuListener(toggleMenuOpen);
 
 // behind-the-scenes functions----------------------------------------------------------------------------
 const addWordToStoryWords = () => {
